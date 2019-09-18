@@ -3,4 +3,4 @@ project(TP120192CCF211 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(TP120192CCF211 main.c)
+add_executable(TP120192CCF211 main.c celula_compra.c celula_compra.h celula_produto.c celula_produto.h)
