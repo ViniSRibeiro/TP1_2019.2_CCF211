@@ -7,10 +7,11 @@
 #include <stddef.h>
 #include "celula_produto.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void FLVazia(Tlista_produto* pLproduto)
 {
-    pLproduto->pPrimeiro = (Apontador) malloc(sizeof(Tlista_produto));
+    pLproduto->pPrimeiro = (Apontador_produto) malloc(sizeof(Tlista_produto));
     pLproduto->pUltimo = pLproduto->pPrimeiro;
     pLproduto->pPrimeiro->Pprox = NULL;
 }
@@ -20,7 +21,7 @@ int LPEhVazia(Tlista_produto* pLproduto){
 }
 
 int LPInsere(Tlista_produto* pLproduto, Titem_produto* pIproduto){
-    pLproduto->pUltimo->Pprox = (Apontador) malloc(sizeof(Tcel_produto));
+    pLproduto->pUltimo->Pprox = (Apontador_produto) malloc(sizeof(Tcel_produto));
     pLproduto->pUltimo = pLproduto->pUltimo->Pprox;
     pLproduto->pUltimo->Item = *pIproduto;
     pLproduto->pUltimo->Pprox = NULL;
@@ -28,3 +29,14 @@ int LPInsere(Tlista_produto* pLproduto, Titem_produto* pIproduto){
     pLproduto->soma_qtd++;
 }
 
+void LPImprime(Tlista_produto* pLista)
+{
+    Apontador_produto pAux;
+    pAux = pLista->pPrimeiro->Pprox;
+    while (pAux != NULL)
+    {
+        printf("%s\n", pAux->Item.data);
+        printf("%d\n",pAux->Item.qtd);
+        pAux = pAux->Pprox;
+    }
+}
