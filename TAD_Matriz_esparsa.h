@@ -15,22 +15,21 @@
 typedef struct Celula {
     struct Celula *prox_linha, *prox_coluna;
     int linha, coluna;
-    Tlista_produto* Lista_produtos;
-    Tcel_produto* Cel_produtos;
+    Tlista_produto Lista_produtos;
 } TCelula;
 
 typedef struct{
     int m, n;
-    TCelula *start, *end_linha, *end_coluna;
+    TCelula *linhas, *colunas;
 }TMatriz_esparsa;
 
 typedef TMatriz_esparsa Matriz_esparsa;
 
-Matriz_esparsa *cria_matriz_esparsa(int m, int n);
+void cria_matriz_esparsa(int m, int n, TMatriz_esparsa mat);
 int inicia_Cel_Cabeca(Matriz_esparsa *mat);
 int insere_Cel_CabecaLinha(Matriz_esparsa *mat);
 int insere_Cel_CabecaColuna(Matriz_esparsa *mat);
-int insere_Item(Matriz_esparsa *mat, int linha, int coluna, Titem_produto *pItem);
+int insere_Item(Matriz_esparsa *mat, int linha, int coluna, TCelula cel);
 int Print_Matriz(Matriz_esparsa *mat);
 int quantidade_compras_cliente(Matriz_esparsa *mat, int linha, TCelula *pCelula);
 int quantidade_compras_produto(Matriz_esparsa *mat, int coluna, TCelula *pCelula);
