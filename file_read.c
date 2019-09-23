@@ -8,14 +8,16 @@
 #include "TAD_Matriz_esparsa.h"
 #include "celula_produto.h"
 Matriz_esparsa *read_matrix(char *nome){ //nome ou endereco do arquivo
-    Matriz_esparsa *mat;
+    TMatriz_esparsa *mat;
     Titem_produto *Item;
-
+    Tlista_produto lista;
+    Tcel_produto *Celproduto;
+    TCelula *CelMatriz;
     char linha;
 
     int m=0, n=0;
-    int l=0, c=0;
-    float valor=0.0;
+    int i=0, j=0;
+
 
     FILE *arquivo;
 
@@ -34,15 +36,17 @@ Matriz_esparsa *read_matrix(char *nome){ //nome ou endereco do arquivo
         return 0;
     }
 
-    mat = cria_matriz_esparsa(m, n);
+    cria_matriz_esparsa(m,n, mat);
 
-    while(fgets(linha, arquivo)!= '\n'){
-        sscanf(linha, "%d %d", &l, &c);
-        sscanf(linha, "%s %d",Item->data,Item->qtd);
-
-        if (Item->qtd){
-            insere_Item(mat, l, c, Item);
+    while(fgets(linha,2, arquivo)!= '\n'){
+        sscanf(linha, "%d %d", &i, &j);
+        FLPVazia(lista);
+        while (arquivo != '\n'){ //pesquisar estrutura de repetiçao apropriada
+            sscanf("%s,%d",Celproduto->Item.data,Celproduto->Item.qtd);
+            LPInsere(lista,Celproduto);
         }
+        CelMatriz->Lista_produtos = lista;
+        insere_Item(mat,m,n,CelMatriz);
     }
     fclose(arquivo);
     return mat;

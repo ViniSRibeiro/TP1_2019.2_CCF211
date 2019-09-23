@@ -21,12 +21,14 @@ int LPEhVazia(Tlista_produto* pLproduto){
 }
 
 int LPInsere(Tlista_produto* pLproduto, Titem_produto* pIproduto){
+    if (LPEhVazia(pLproduto)){ return 0;}
     pLproduto->pUltimo->Pprox = (Apontador_produto) malloc(sizeof(Tcel_produto));
     pLproduto->pUltimo = pLproduto->pUltimo->Pprox;
     pLproduto->pUltimo->Item = *pIproduto;
     pLproduto->pUltimo->Pprox = NULL;
     pLproduto->soma_datas++;
     pLproduto->soma_qtd++;
+    return 1;
 }
 
 void LPImprime(Tlista_produto* pLista)
