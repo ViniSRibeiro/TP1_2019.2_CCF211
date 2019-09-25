@@ -45,14 +45,15 @@ void cria_matriz_esparsa(int m, int n, TMatriz_esparsa *mat){
     /*criou todos os cabeçalhos de colunas*/
 }
 
-int insere_Item(Matriz_esparsa *mat, int linha, int coluna, TCelula* pCel){
-    TCelula *aux_linha,*aux_coluna, Elelmento_E;
+int insere_Item(Matriz_esparsa *mat, int linha, int coluna, Tlista_produto *pLista_produto){
+    TCelula *aux_linha,*aux_coluna, *Elemento_E;
+
     aux_coluna = mat->colunas;
     while(aux_coluna->coluna != coluna){  //verificar esse operador mais tarde
         aux_coluna = aux_coluna->prox_coluna;
     } //encontrou a coluna correta
     aux_coluna = aux_coluna->prox_linha; // descendo pela coluna correta para encontrar o elemento anterior ao da inserçao
-    while (aux_coluna->linha != linha){
+    while (aux_coluna->prox_linha->linha < linha && aux_coluna->prox_linha->linha != -1){
         aux_coluna = aux_coluna->prox_linha;
     }// encontrou o elemento anterior na mesma coluna
 
@@ -62,17 +63,19 @@ int insere_Item(Matriz_esparsa *mat, int linha, int coluna, TCelula* pCel){
     } //encontrou a linha correta
 
     aux_linha= aux_linha->prox_coluna; // andando na linha correta para encontrar o elemento anterior
-    while (aux_linha->coluna != coluna){
+    while (aux_linha->prox_coluna->coluna < coluna && aux_linha->prox_coluna->coluna != -1){
         aux_linha = aux_linha->prox_coluna;
     }// encontrou o elemento anterior na mesma linha
 
-    Elelmento_E.prox_linha = aux_linha;
 
-    Elelmento_E.prox_linha = (TCelula*)malloc(sizeof(TCelula));
-    Elelmento_E.prox_coluna = aux_coluna;
-    Elelmento_E = *pCel;
-    aux_linha->prox_linha = &Elelmento_E;
-    aux_coluna->prox_coluna = &Elelmento_E;
+    Elemento_E = (TCelula*)malloc(sizeof(TCelula));
+    Elemento_E->prox_linha = aux_linha->prox_linha;
+    Elemento_E->prox_coluna = aux_coluna->prox_coluna;
+    Elemento_E->Lista_produtos = *pLista_produto;
+    Elemento_E->linha = linha;
+    Elemento_E->coluna = coluna;
+    aux_linha->prox_linha = Elemento_E;
+    aux_coluna->prox_coluna = Elemento_E;
 
 }
 
@@ -120,7 +123,7 @@ int Print_Matriz(Matriz_esparsa *mat){
         }else {
             while (aux_colunas != aux_linhas) { //enquanto a proxima coluna nao e a cabeça das linhas novamente
                 if (aux_colunas->prox_coluna->coluna - aux_colunas->coluna >1) { //imprimir quantos 0's faltarem naquele local
-                    for (i = 0; i < (aux_colunas->prox_coluna->coluna - aux_colunas->coluna); ++i) {
+                    for (i = 0; i < (aux_colunas->prox_coluna->coluna - aux_colunas->coluna); ++i) { //rever
                         printf("0");
                     }
                 } else {

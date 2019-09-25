@@ -26,7 +26,7 @@ typedef struct{
 typedef TMatriz_esparsa Matriz_esparsa;
 
 void cria_matriz_esparsa(int m, int n, TMatriz_esparsa *mat);
-int insere_Item(Matriz_esparsa *mat, int linha, int coluna, TCelula* pCel);
+int insere_Item(Matriz_esparsa *mat, int linha, int coluna, Tlista_produto *pLista_produto);
 int Print_Matriz(Matriz_esparsa *mat);
 int quantidade_compras_cliente(Matriz_esparsa *mat, int linha);
 int quantidade_compras_produto(Matriz_esparsa *mat, int coluna);

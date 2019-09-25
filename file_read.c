@@ -7,13 +7,13 @@
 #include <stdlib.h>
 #include "TAD_Matriz_esparsa.h"
 #include "celula_produto.h"
-Matriz_esparsa *read_matrix(char *nome){ //nome ou endereco do arquivo
-    TMatriz_esparsa *mat;
-    Titem_produto *Item;
-    Tlista_produto lista;
-    Tcel_produto *Celproduto;
-    TCelula *CelMatriz;
-    char linha;
+Matriz_esparsa read_matrix(char *nome){ //nome ou endereco do arquivo
+    TMatriz_esparsa *pMat;
+    Titem_produto *pItem;
+    Tlista_produto *pLista;
+    Tcel_produto *pCelproduto;
+    TCelula *pCelMatriz;
+    char linha[2];
 
     int m=0, n=0;
     int i=0, j=0;
@@ -26,28 +26,27 @@ Matriz_esparsa *read_matrix(char *nome){ //nome ou endereco do arquivo
         arquivo = fopen("arquivo.txt","w");
         fprintf(arquivo, "Erro ao abrir arquivo\n");
         fclose(arquivo);
-        return NULL;
+        return 1;
     }
 
-    fgets(linha, arquivo); //le primeira linha
+    fgets(linha,2, arquivo); //le primeira linha
     sscanf(linha, "%d %d", &m, &n);
 
     if (m<=0 || n<=0){
         return 0;
     }
 
-    cria_matriz_esparsa(m,n, mat);
+    cria_matriz_esparsa(m, n, pMat);
 
-    while(fgets(linha,2, arquivo)!= '\n'){
-        sscanf(linha, "%d %d", &i, &j);
-        FLPVazia(lista);
-        while (arquivo != '\n'){ //pesquisar estrutura de repetiçao apropriada
-            sscanf("%s,%d",Celproduto->Item.data,Celproduto->Item.qtd);
-            LPInsere(lista,Celproduto);
+    while(!feof(arquivo)){
+
+        sscanf(linha, "%d %d", &i, &j); //le as coordenadas a ser inserida na matriz
+        FLPVazia(pLista);
+        while (!feof(arquivo)){
+            fscanf("%c,%d", pItem->data, pItem->qtd);
         }
-        CelMatriz->Lista_produtos = lista;
-        insere_Item(mat,m,n,CelMatriz);
+        insere_Item()
     }
     fclose(arquivo);
-    return mat;
+    return pMat;
 }
