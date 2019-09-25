@@ -11,20 +11,20 @@
 
 void cria_matriz_esparsa(int m, int n, TMatriz_esparsa *mat){
     TCelula *aux_linhas, *aux_colunas;
-    mat.primeiro = (TCelula*)malloc(sizeof(TCelula));
-    mat.primeiro->linha = -1;
-    mat.primeiro->coluna = -1;
+    mat->primeiro = (TCelula*)malloc(sizeof(TCelula));
+    mat->primeiro->linha = -1;
+    mat->primeiro->coluna = -1;
     int i = 1, j = 1; //1 pois a primeira cabeça da linha e da coluna estao criadas
-    mat.primeiro->prox_coluna = (TCelula*)malloc(sizeof(TCelula));
-    mat.colunas = mat.primeiro->prox_coluna;
-    mat.colunas->coluna= 0;
-    mat.colunas->linha = -1;
-    aux_colunas = mat.colunas;
-    mat.primeiro->prox_linha = (TCelula*)malloc(sizeof(TCelula));
-    mat.linhas = mat.primeiro->prox_linha;
-    mat.linhas->linha = 0;
-    mat.linhas->coluna = -1;
-    aux_linhas = mat.linhas;
+    mat->primeiro->prox_coluna = (TCelula*)malloc(sizeof(TCelula));
+    mat->colunas = mat->primeiro->prox_coluna;
+    mat->colunas->coluna= 0;
+    mat->colunas->linha = -1;
+    aux_colunas = mat->colunas;
+    mat->primeiro->prox_linha = (TCelula*)malloc(sizeof(TCelula));
+    mat->linhas = mat->primeiro->prox_linha;
+    mat->linhas->linha = 0;
+    mat->linhas->coluna = -1;
+    aux_linhas = mat->linhas;
 
     for ( i; i < m; ++i) { // cria as cabeças das linhas
         aux_linhas->prox_linha = (TCelula*)malloc(sizeof(TCelula));
@@ -32,7 +32,7 @@ void cria_matriz_esparsa(int m, int n, TMatriz_esparsa *mat){
         aux_linhas->prox_linha->coluna = -1;
         aux_linhas = aux_linhas->prox_linha;
     }
-    aux_linhas->prox_linha = mat.primeiro;
+    aux_linhas->prox_linha = mat->primeiro;
     /*criou todos os cabeçalhos de linhas */
 
     for ( j; j < n; ++j) { // cria as cabeças das colunas
@@ -41,7 +41,7 @@ void cria_matriz_esparsa(int m, int n, TMatriz_esparsa *mat){
         aux_colunas->prox_coluna->linha = -1;
         aux_colunas = aux_colunas->prox_coluna;
     }
-    aux_colunas->prox_coluna = mat.primeiro;
+    aux_colunas->prox_coluna = mat->primeiro;
     /*criou todos os cabeçalhos de colunas*/
 }
 
