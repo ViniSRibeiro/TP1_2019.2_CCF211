@@ -9,11 +9,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void FLVazia(Tlista_produto* pLproduto)
+void FLPVazia(Tlista_produto* pLproduto)
 {
-    pLproduto->pPrimeiro = (Apontador_produto) malloc(sizeof(Tlista_produto));
+    pLproduto->pPrimeiro = (Tcel_produto*) malloc(sizeof(Tcel_produto));
     pLproduto->pUltimo = pLproduto->pPrimeiro;
-    pLproduto->pPrimeiro->Pprox = NULL;
+    pLproduto->pUltimo->Pprox = NULL;
 }
 
 int LPEhVazia(Tlista_produto* pLproduto){
@@ -21,14 +21,13 @@ int LPEhVazia(Tlista_produto* pLproduto){
 }
 
 int LPInsere(Tlista_produto* pLproduto, Titem_produto* pIproduto){
-    if (LPEhVazia(pLproduto)){ return 0;}
     pLproduto->pUltimo->Pprox = (Apontador_produto) malloc(sizeof(Tcel_produto));
     pLproduto->pUltimo = pLproduto->pUltimo->Pprox;
     pLproduto->pUltimo->Item = *pIproduto;
     pLproduto->pUltimo->Pprox = NULL;
     pLproduto->soma_datas++;
-    pLproduto->soma_qtd++;
-    return 1;
+    pLproduto->soma_qtd = pLproduto->soma_qtd + pLproduto->pUltimo->Item.qtd;
+    return 0;
 }
 
 void LPImprime(Tlista_produto* pLista)

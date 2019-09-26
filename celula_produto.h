@@ -25,6 +25,7 @@ typedef struct cel_produto{ //celula da lista encadeada
     struct cel_produto *Pprox;
 }Tcel_produto;
 
+
 typedef  struct { //lista encadeada dento de uma unidade da matriz
     Apontador_produto pPrimeiro;
     Apontador_produto pUltimo;

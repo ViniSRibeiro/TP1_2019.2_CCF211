@@ -5,11 +5,13 @@
 #include "TAD_Matriz_esparsa.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "celula_produto.h"
+
 #include <locale.h>
 
 
 void cria_matriz_esparsa(int m, int n, TMatriz_esparsa *mat){
+    mat->m = m;
+    mat->n = n;
     TCelula *aux_linhas, *aux_colunas;
     mat->primeiro = (TCelula*)malloc(sizeof(TCelula));
     mat->primeiro->linha = -1;
@@ -76,6 +78,8 @@ int insere_Item(Matriz_esparsa *mat, int linha, int coluna, Tlista_produto *pLis
     Elemento_E->coluna = coluna;
     aux_linha->prox_linha = Elemento_E;
     aux_coluna->prox_coluna = Elemento_E;
+    printf("inserçao na linha %d e coluna %d completa",Elemento_E->linha,Elemento_E->coluna);
+    exit(0);
 
 }
 
@@ -91,7 +95,7 @@ int quantidade_compras_cliente(Matriz_esparsa *mat, int linha) { //soma de toda 
         aux_linha = aux_linha->prox_coluna;
     }
     printf("%d\n",soma);
-    return 1;
+    return 0;
 }
 
 int quantidade_compras_produto(Matriz_esparsa *mat, int coluna) { //soma toda uma coluna
@@ -104,7 +108,7 @@ int quantidade_compras_produto(Matriz_esparsa *mat, int coluna) { //soma toda um
         soma = soma+ aux_coluna->Lista_produtos.soma_qtd;
     }
     printf("%d\n",soma);
-
+    return 0;
 }
 
 int Print_Matriz(Matriz_esparsa *mat){
@@ -123,7 +127,7 @@ int Print_Matriz(Matriz_esparsa *mat){
         }else {
             while (aux_colunas != aux_linhas) { //enquanto a proxima coluna nao e a cabeça das linhas novamente
                 if (aux_colunas->prox_coluna->coluna - aux_colunas->coluna >1) { //imprimir quantos 0's faltarem naquele local
-                    for (i = 0; i < (aux_colunas->prox_coluna->coluna - aux_colunas->coluna); ++i) { //rever
+                    for (i = 1; i < (aux_colunas->prox_coluna->coluna - aux_colunas->coluna); ++i) { //rever
                         printf("0");
                     }
                 } else {
@@ -135,4 +139,7 @@ int Print_Matriz(Matriz_esparsa *mat){
         aux_linhas = aux_linhas->prox_linha; //avança para a proxima linha
         aux_colunas = aux_linhas->prox_coluna; //avança para o primeiro indice na linha seguinte
     }
+
+    return 0;
+
 }
